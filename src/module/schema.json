@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "projectName": {
+            "type": "string",
+            "x-prompt": "Quel est le nom de votre projet Angular ?"
+        },
+        "module": {
+            "type": "string",
+            "x-prompt": "Quel est le nom du module ( le parents des futur composants ) ?"
+        },
+        "les_tables": {
+            "type": "array",
+            "x-prompt": "Quel sont les tables à générer ?"
+        }
+    },
+    "required": []
+}

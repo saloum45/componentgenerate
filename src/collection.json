@@ -1,0 +1,64 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "taf": {
+      "description": "A blank schematic.",
+      "factory": "./taf/index#taf",
+      "schema": "./taf/schema.json"
+    },
+    "api": {
+      "description": "A blank schematic.",
+      "factory": "./api/index#api",
+      "schema": "./api/schema.json"
+    },
+    "add": {
+      "description": "A blank schematic.",
+      "factory": "./component/add/index#add"
+    },
+    "edit": {
+      "description": "A blank schematic.",
+      "factory": "./component/edit/index#edit"
+    },
+    "list": {
+      "description": "A blank schematic.",
+      "factory": "./component/list/index#list"
+    },
+    "module": {
+      "description": "A blank schematic.",
+      "factory": "./module/index#module",
+      "schema": "./module/schema.json"
+    },
+    "taf-add-import-to-module": {
+      "description": "A blank schematic.",
+      "factory": "./other/taf-add-import-to-module/index#tafAddImportToModule"
+    },
+    "wrapper": {
+      "description": "A blank schematic.",
+      "factory": "./component/wrapper/index#wrapper"
+    },
+    "details": {
+      "description": "A blank schematic.",
+      "factory": "./component/details/index#details"
+    },
+    "login": {
+      "description": "A blank schematic.",
+      "factory": "./component/login/index#login"
+    },
+    "service/api": {
+      "description": "A blank schematic.",
+      "factory": "./service/api/index#api"
+    },
+    "guard/auth": {
+      "description": "A blank schematic.",
+      "factory": "./guard/auth/index#auth"
+    },
+    "not-found": {
+      "description": "A blank schematic.",
+      "factory": "./component/not-found/index#notFound"
+    },
+    "deconnexion": {
+      "description": "A blank schematic.",
+      "factory": "./component/deconnexion/index#deconnexion"
+    }
+  }
+}

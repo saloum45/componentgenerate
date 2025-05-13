@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "taf-schematic",
+    "title": "jant-taf générateurs de composants angular",
+    "type": "object",
+    "properties": {
+        "module": {
+            "type": "string",
+            "description": "Nom du module dans lequel ajouter le composant"
+        },
+        "table": {
+            "type": "string",
+            "description": "Nom de la table liée au composant"
+        },
+        "type": {
+            "type": "string",
+            "description": "Type de composant souhaité : list,add,edit,details,login,deconnexion,not-found"
+        },
+        "test": {
+            "type": "boolean",
+            "description": "Simulation"
+        }
+    },
+    "required": []
+}

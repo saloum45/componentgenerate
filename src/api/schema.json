@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "projectName": {
+            "type": "string",
+            "x-prompt": "Quel est le nom de votre projet Angular ?"
+        },
+        "parent": {
+            "type": "string",
+            "x-prompt": "Ou est ce que tu souhaite loger les fichiers à générer ('home' => si dans un dossier 'home') ?"
+        },
+        "table": {
+            "type": "object",
+            "x-prompt": "Quel est le nom de la table ?"
+        }
+    },
+    "required": []
+}
