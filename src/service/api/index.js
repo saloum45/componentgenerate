@@ -99,6 +99,22 @@ export class ApiService {
     return this.network.token
   }
   //les requetes http
+    async taf_post(path: string, data_to_send: any, on_success: Function, on_error: Function) {
+    let api_url = this.taf_base_url + path;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + await this.get_token(),
+      })
+    };
+    this.http.post(api_url, data_to_send, httpOptions).subscribe(
+      (reponse: any) => {// on success
+        on_success(reponse)
+      },
+      (error: any) => {// on error
+        this.on_taf_post_error(error, on_error)
+      }
+    )
+  }
   async taf_get(path: string, on_success: Function, on_error: Function) {
     let api_url = this.taf_base_url + path;
     const httpOptions = {
