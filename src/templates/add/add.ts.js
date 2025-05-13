@@ -64,7 +64,7 @@ export class ${componentName_class}Component {
   }
   add_${table.table}(${table.table}: any) {
       this.loading_add_${table.table} = true;
-      this.api.taf_post("${table.table}/add", ${table.table}, (reponse: any) => {
+      this.api.taf_post("${table.table}", ${table.table}, (reponse: any) => {
       this.loading_add_${table.table} = false;
       if (reponse.status) {
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
@@ -82,7 +82,7 @@ export class ${componentName_class}Component {
   
   get_details_add_${table.table}_form() {
       this.loading_get_details_add_${table.table}_form = true;
-      this.api.taf_post("${table.table}/get_form_details", {}, (reponse: any) => {
+      this.api.taf_get("${table.table}/getformdetails", (reponse: any) => {
         if (reponse.status) {
           this.form_details = reponse.data
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);

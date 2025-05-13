@@ -74,7 +74,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     edit_${table.table}(${table.table}: any) {
         this.loading_edit_${table.table} = true;
-        this.api.taf_post("${table.table}/edit", ${table.table}, (reponse: any) => {
+        this.api.taf_put("${table.table}/"+${table.table}.id_${table.table}, ${table.table}, (reponse: any) => {
             if (reponse.status) {
                 this.activeModal.close(reponse)
                 console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
@@ -91,7 +91,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     get_details_edit_${table.table}_form() {
         this.loading_get_details_edit_${table.table}_form = true;
-        this.api.taf_post("${table.table}/get_form_details", {}, (reponse: any) => {
+        this.api.taf_get("${table.table}/getformdetails", (reponse: any) => {
           if (reponse.status) {
             this.form_details = reponse.data
             console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);

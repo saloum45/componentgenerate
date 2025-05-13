@@ -33,7 +33,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     get_${table.table}() {
       this.loading_get_${table.table} = true;
-      this.api.taf_post("${table.table}/get", {}, (reponse: any) => {
+      this.api.taf_get("${table.table}", (reponse: any) => {
         if (reponse.status) {
           this.les_${table.table}s = reponse.data
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
@@ -58,7 +58,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     delete_${table.table} (${table.table} : any){
       this.loading_delete_${table.table} = true;
-      this.api.taf_post("${table.table}/delete", ${table.table},(reponse: any)=>{
+      this.api.taf_delete("${table.table}/"+${table.table}.id_${table.table},(reponse: any)=>{
         //when success
         if(reponse.status){
           console.log("Opération effectuée avec succés sur la table ${table.table} . Réponse = ",reponse)
