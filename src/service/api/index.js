@@ -5,46 +5,47 @@ const schematics_1 = require("@angular-devkit/schematics");
 // You don't have to export the function as default. You can also have more than one rule factory
 // per file.
 function api(_options) {
-    let { projectName, tafConfig } = _options;
-    let serviceName = "api";
-    return (tree) => {
-        // Le composant existe dèja
-        let c_path = `/src/app/service/${serviceName}/${serviceName}.service.ts`;
-        let c_path_idb = `/src/app/service/idb/idb.service.ts`;
-        if (tree.exists(c_path) && tree.exists(c_path_idb)) {
-            console.warn(`Le service ${serviceName} && IdbService existe dèja : ${c_path}`);
-            return tree;
-        }
-        // le composant n'existe pas encore
-        return (0, schematics_1.chain)([
-            // création du service
-            (0, schematics_1.externalSchematic)("@schematics/angular", "service", { project: projectName, name: `service/${serviceName}/${serviceName}` }),
-            // modification des fichiers
-            (tree) => {
-                // modifier le fichier TS
-                tree.overwrite(`src/app/service/${serviceName}/${serviceName}.service.ts`, // service/api/api.service.ts
-                get_ts_content(projectName, tafConfig));
-            },
-            // création du service
-            (0, schematics_1.externalSchematic)("@schematics/angular", "service", { project: projectName, name: `service/idb/idb` }),
-            // modification des fichiers
-            (tree) => {
-                // modifier le fichier TS
-                tree.overwrite(`src/app/service/idb/idb.service.ts`, // service/api/api.service.ts
-                get_ts_content_idb(projectName));
-            }
-        ]);
-    };
+  let { projectName, tafConfig } = _options;
+  let serviceName = "api";
+  return (tree) => {
+    // Le composant existe dèja
+    let c_path = `/src/app/service/${serviceName}/${serviceName}.service.ts`;
+    let c_path_idb = `/src/app/service/idb/idb.service.ts`;
+    if (tree.exists(c_path) && tree.exists(c_path_idb)) {
+      console.warn(`Le service ${serviceName} && IdbService existe dèja : ${c_path}`);
+      return tree;
+    }
+    // le composant n'existe pas encore
+    return (0, schematics_1.chain)([
+      // création du service
+      (0, schematics_1.externalSchematic)("@schematics/angular", "service", { project: projectName, name: `service/${serviceName}/${serviceName}` }),
+      // modification des fichiers
+      (tree) => {
+        // modifier le fichier TS
+        tree.overwrite(`src/app/service/${serviceName}/${serviceName}.service.ts`, // service/api/api.service.ts
+          get_ts_content(projectName, tafConfig));
+      },
+      // création du service
+      (0, schematics_1.externalSchematic)("@schematics/angular", "service", { project: projectName, name: `service/idb/idb` }),
+      // modification des fichiers
+      (tree) => {
+        // modifier le fichier TS
+        tree.overwrite(`src/app/service/idb/idb.service.ts`, // service/api/api.service.ts
+          get_ts_content_idb(projectName));
+      }
+    ]);
+  };
 }
 exports.api = api;
 function get_ts_content(projectName, tafConfig) {
-    let taf_base_url = tafConfig.taf_base_url;
-    return `import { HttpClient, HttpHeaders } from '@angular/common/http';
+  let taf_base_url = tafConfig.taf_base_url;
+  return `import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IdbService } from '../idb/idb.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 
 @Injectable({
@@ -67,7 +68,7 @@ export class ApiService {
     date_expiration: null
   }
 
-  constructor(private http: HttpClient, private route: Router, private idb: IdbService) { }
+  constructor(private http: HttpClient, private route: Router, private idb: IdbService,public _location: Location) { }
   // sauvegardes
   async get_from_local_storage(key: string): Promise<any> {
     try {
@@ -259,10 +260,68 @@ export class ApiService {
       full_datetime: moment().locale("fr").format("dddd Do MMMM YYYY à HH:mm"),// 27 février 2023
     }
   }
+
+    les_droits: any = {
+    // Gestion de la parti commerciale
+    "produit.add": [1, 5, 6, 8],
+    "produit.edit": [1, 5, 6, 8],
+  };
+
+
+  can(action: string): boolean {
+    let id_type_utilisateur = +this.network.user_connected.id_privilege || 0
+    if (this.les_droits[action] && this.les_droits[action].indexOf(id_type_utilisateur) != -1) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  full_menu: any[] = [
+    {
+      menu_header: "Solener",
+      items: [
+        {
+          text: "Dashboard",
+          path: "/home/dashboard",
+          icone: "bi bi-speedometer",
+          privileges: [1, 2],
+          items: []
+        }
+      ]
+    },];
+
+      custom_menu() {
+    // console.log("agent", this.token.token_decoded.taf_data)
+    let id_privilege = this.token.token_decoded.taf_data.id_privilege || 0
+    // let id_privilege = 1;
+    this.menu = this.full_menu.map((one: any) => {
+      let res = Object.assign({}, one)
+      res.items = one.items.filter((one_item: any) => {
+        let is_vide = one_item.privileges.length == 0
+        let es_dans_privileges = one_item.privileges.indexOf(id_privilege) != -1
+        return is_vide || (es_dans_privileges)
+      }).map((one_item: any) => {
+        let res2 = Object.assign({}, one_item)
+        res2.items = one_item.items.filter((one_sub_item: any) => {
+          let is_vide = one_sub_item.privileges.length == 0
+          let es_dans_privileges = one_sub_item.privileges.indexOf(id_privilege) != -1
+          return is_vide || es_dans_privileges
+        })
+        return res2
+      })
+      return res
+    }).filter((one: any) => one.items.length > 0)
+    console.log("full_menu= ", this.full_menu, " menu= ", this.menu)
+  }
+
+    retour() {
+    this._location.back()
+  }
 }`;
 }
 function get_ts_content_idb(projectName) {
-    return `import { Injectable } from '@angular/core';
+  return `import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
