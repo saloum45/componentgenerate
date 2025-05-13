@@ -115,23 +115,6 @@ export class ApiService {
       }
     )
   }
-  async taf_get(path: string, on_success: Function, on_error: Function) {
-    let api_url = this.taf_base_url + path;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: "Bearer " + await this.get_token(),
-      })
-    };
-
-    this.http.get(api_url, httpOptions).subscribe(
-      (reponse: any) => {// on success
-        on_success(reponse)
-      },
-      (error: any) => {// on error
-        this.on_taf_get_error(error, on_error)
-      }
-    )
-  }
   on_taf_get_error(error: any, on_error: Function) {
     this.network.status = false;
     this.network.message = error
