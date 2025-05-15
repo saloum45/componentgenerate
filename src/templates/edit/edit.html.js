@@ -21,7 +21,7 @@ function get_html_content(table) {
               <label>${formatFieldName(une_colonne.referenced_table.table_name)}</label>
               <select [ngClass]="{ 'is-invalid': submitted && f.${une_colonne.Field}.errors }" class="form-select" formControlName="${une_colonne.Field}">
                 <option value="">Sélectionnez un(e) ${formatFieldName(une_colonne.referenced_table.table_name)}</option>
-                @for (one_${une_colonne.referenced_table.table_name} of form_details?.les_${une_colonne.referenced_table.table_name}s; track $index) {
+                @for (one_${une_colonne.referenced_table.table_name} of form_details?.${une_colonne.referenced_table.table_name}s; track $index) {
                   <option [value]="one_${une_colonne.referenced_table.table_name}.${une_colonne.referenced_table.cle_primaire.Field}">
                     {{"${formatFieldName(une_colonne.referenced_table.table_name)} N°" + one_${une_colonne.referenced_table.table_name}.${une_colonne.referenced_table.cle_primaire.Field}}}
                   </option>
