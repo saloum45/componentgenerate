@@ -318,6 +318,14 @@ export class ApiService {
     retour() {
     this._location.back()
   }
+
+    formatNumber(value: string): string {
+    if (!value || isNaN(Number(value))) {
+      return value; // Retourne la valeur telle quelle si elle est null, vide ou non numérique
+    }
+    return Number(value).toLocaleString('fr-FR'); // Utilise Number.toLocaleString pour formater le nombre
+  }
+
 }`;
 }
 function get_ts_content_idb(projectName) {
