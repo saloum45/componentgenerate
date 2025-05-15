@@ -26,7 +26,7 @@ function get_html_content(table) {
                       class="form-select" 
                       formControlName="${une_colonne.Field}">
                 <option value="">Sélectionnez un(e) ${formatFieldName(une_colonne.referenced_table.table_name)}</option>
-                @for (one_${une_colonne.referenced_table.table_name} of form_details?.${une_colonne.referenced_table.table_name}s; track $index) {
+                @for (one_${une_colonne.referenced_table.table_name} of form_details?.${une_colonne.referenced_table.table_name}; track $index) {
                   <option [value]="one_${une_colonne.referenced_table.table_name}.${une_colonne.referenced_table.cle_primaire.Field}">
                     {{ "N°" + one_${une_colonne.referenced_table.table_name}.${une_colonne.referenced_table.cle_primaire.Field} }}
                   </option>
