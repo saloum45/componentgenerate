@@ -319,7 +319,7 @@ export class ApiService {
     this._location.back()
   }
 
-    formatNumber(value: string): string {
+    formatNumber(value: any): string {
     if (!value || isNaN(Number(value))) {
       return value; // Retourne la valeur telle quelle si elle est null, vide ou non numérique
     }
