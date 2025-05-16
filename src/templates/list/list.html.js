@@ -12,13 +12,17 @@ function get_html_content(table) {
     <i style="cursor: pointer;" class="bi bi-pencil-square me-2" (click)="openModal_edit_${table.table}(one_${table.table})"></i>
     <i style="cursor: pointer;" class="bi bi-trash" (click)="delete_${table.table}(one_${table.table})"></i>
 </td>`;
-    return `<!-- entete -->
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="fs-1">${(0, strings_1.classify)(table.table)}  - {{les_${table.table}s.length}}</div>
-    <div class="d-flex">
-      <button class="btn btn-primary" (click)="openModal_add_${table.table}()">Ajouter ${(0, strings_1.classify)(table.table)}</button>
-    </div>
+    return `<div
+  class="d-flex align-items-center justify-content-between  bg-white shadow-sm p-4 rounded rounded-2 mb-4 border border-1">
+  <div class="d-flex  align-items-center">
+    <i class="bi bi-arrow-left text-secondary fs-3 me-2" (click)="api.retour()"></i>
+    <div class="fs-5">${(0, strings_1.classify)(table.table)}  - {{les_${table.table}s.length}}</div>
   </div>
+  <div class="d-flex">
+    <button class="btn btn-primary" (click)="openModal_add_${table.table}()"><i class="bi bi-plus-square-dotted"></i>
+      ${(0, strings_1.classify)(table.table)}</button>
+  </div>
+</div>
   <!-- Liste des éléments -->
   <div class="table-responsive">
     <table class="table table-striped">
