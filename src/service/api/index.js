@@ -236,8 +236,9 @@ export class ApiService {
     });
     return info
   }
-            is_already_selected(id: any, form: any, condition: string) {//la fonction désactive les options déja sélectionné dans le select
-    return form.filter((one_detail: any) => one_detail[condition] == id)[0]?.[condition] || 0
+  is_already_selected(id: any, form: any, condition: string) {//la fonction désactive les options déja sélectionné dans le select
+    let is_in=form.filter((one_detail: any) => one_detail[condition] == id)[0]?.[condition];
+    return is_in;
   }
 
   format_date(date_string: string) {
