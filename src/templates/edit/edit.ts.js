@@ -62,10 +62,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
             return;
         }
         var ${table.table} = this.reactiveForm_edit_${table.table}.value
-        this.edit_${table.table}({
-        condition:JSON.stringify({id_${table.table}:this.${table.table}_to_edit.id_${table.table}}),
-        data:JSON.stringify(${table.table})
-        })
+        this.edit_${table.table}(${table.table});
     }
     // vider le formulaire
     onReset_edit_${table.table}() {
