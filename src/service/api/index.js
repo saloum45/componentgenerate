@@ -217,7 +217,8 @@ export class ApiService {
   Swal_success(title: any) {
     let succes = Swal.fire({
       title: title,
-      icon: "success"
+      icon: "success",
+      timer:700
     });
     return succes
   }
@@ -225,14 +226,16 @@ export class ApiService {
   Swal_error(title: any) {
     let error = Swal.fire({
       title: title,
-      icon: "error"
+      icon: "error",
+      timer:700
     });
     return error
   }
   Swal_info(title: any) {
     let info = Swal.fire({
       title: title,
-      icon: "info"
+      icon: "info",
+      timer:700
     });
     return info
   }
