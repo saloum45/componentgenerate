@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_ts_content = void 0;
 function get_ts_content(table, componentName_class, componentName, tafConfig) {
     let validators_update = table.table_descriptions.les_colonnes.map((une_colonne) => {
-        if (une_colonne["Key"] != 'PRI' && !(une_colonne["Field"] == "created_at" && une_colonne["Default"] != "")) {
+        if (!(une_colonne["Field"] == "created_at" && une_colonne["Default"] != "")) {
             if (une_colonne["Null"] == "NO") {
                 return `${une_colonne["Field"]} : [${table.table}_to_edit.${une_colonne["Field"]}, Validators.required]`;
             }
