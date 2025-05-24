@@ -278,8 +278,8 @@ export class ApiService {
 
 
   can(action: string): boolean {
-    let id_type_utilisateur = +this.network.user_connected.id_privilege || 0
-    if (this.les_droits[action] && this.les_droits[action].indexOf(id_type_utilisateur) != -1) {
+    let id_privilege = (await this.get_token_profil())?.id_privilege ||0
+    if (this.les_droits[action] && this.les_droits[action].indexOf(id_privilege) != -1) {
       return true
     } else {
       return false
