@@ -87,17 +87,22 @@ export class ApiService {
     await this.idb.delete_from_indexedDB(key);
   }
 
+
   async get_token() {
-    //le token n'est pas encore chargé
-    if (this.network.token == undefined) {
-      this.network.token = await this.get_from_local_storage("token")
-      if (this.network.token != undefined && this.network.token != null) {// token existant
-        this.update_data_from_token()// mise a jour du token
-      }
-    } else {// token dèja chargé
-      this.update_data_from_token()// mise a jour du token
-    }
-    return this.network.token
+    // //le token n'est pas encore chargé
+    // if (this.network.token == undefined) {
+    //   this.network.token = await this.get_from_local_storage("token").token
+    //   if (this.network.token != undefined && this.network.token != null) {// token existant
+    //     this.update_data_from_token()// mise a jour du token
+    //   }
+    // } else {// token dèja chargé
+    //   this.update_data_from_token()// mise a jour du token
+    // }
+    // console.warn((await this.get_from_local_storage("token")).token)
+    return (await this.get_from_local_storage("token"))?.token
+  }
+  async get_token_profil() {
+    return (await this.get_from_local_storage("token"))?.data
   }
   //les requetes http
     async taf_post(path: string, data_to_send: any, on_success: Function, on_error: Function) {
@@ -295,10 +300,12 @@ export class ApiService {
       ]
     },];
 
-      custom_menu() {
+
+  async custom_menu() {
     // console.log("agent", this.token.token_decoded.taf_data)
-    let id_privilege = this.token.token_decoded.taf_data.id_privilege || 0
+    let id_privilege = (await this.get_token_profil())?.id_privilege
     // let id_privilege = 1;
+    console.warn('id_privi',id_privilege)
     this.menu = this.full_menu.map((one: any) => {
       let res = Object.assign({}, one)
       res.items = one.items.filter((one_item: any) => {

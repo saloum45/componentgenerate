@@ -91,7 +91,7 @@ export class ${componentName_class}Component {
       if (reponse.status) {
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
           this.onReset_login_${table.table}()
-          await this.api.save_on_local_storage("token", reponse.data)
+          await this.api.save_on_local_storage("token", reponse)
           this.api.Swal_success("Opération éffectuée avec succés")
           this.router.navigate(['/home'])
       } else {
@@ -101,7 +101,7 @@ export class ${componentName_class}Component {
       this.loading_login_${table.table} = false;
   }, (error: any) => {
       this.loading_login_${table.table} = false;
-  })
+  })e
 }
 }
 `;
