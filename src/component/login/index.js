@@ -92,6 +92,7 @@ export class ${componentName_class}Component {
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
           this.onReset_login_${table.table}()
           await this.api.save_on_local_storage("token", reponse)
+          await this.api.update_data_from_token();
           this.api.Swal_success("Opération éffectuée avec succés")
           this.router.navigate(['/home'])
       } else {

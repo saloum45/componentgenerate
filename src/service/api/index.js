@@ -62,11 +62,11 @@ export class ApiService {
     message: "Aucun probléme détecté",
   }
   token: any = {
-    token_key: null,
-    token_decoded: null,
+    token: null,
+    // token_decoded: null,
     user_connected: null,
-    is_expired: null,
-    date_expiration: null
+    // is_expired: null,
+    // date_expiration: null
   }
 
   constructor(private http: HttpClient, private route: Router, private idb: IdbService,public _location: Location) { }
@@ -99,6 +99,9 @@ export class ApiService {
     //   this.update_data_from_token()// mise a jour du token
     // }
     // console.warn((await this.get_from_local_storage("token")).token)
+       if (this.token.token == null) {
+      this.update_data_from_token();
+    }
     return (await this.get_from_local_storage("token"))?.token
   }
   async get_token_profil() {
@@ -196,18 +199,18 @@ export class ApiService {
     on_error(error)
   }
   async update_data_from_token() {
-    let token_key = await this.get_from_local_storage("token")
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token_key);
-    const expirationDate = helper.getTokenExpirationDate(token_key);
-    const isExpired = helper.isTokenExpired(token_key);
+    let token_key = (await this.get_from_local_storage("token"))
+    // const helper = new JwtHelperService();
+    // const decodedToken = helper.decodeToken(token_key);
+    // const expirationDate = helper.getTokenExpirationDate(token_key);
+    // const isExpired = helper.isTokenExpired(token_key);
 
     this.token = {
-      token_key: token_key,
-      token_decoded: decodedToken,
-      user_connected: decodedToken.taf_data,
-      is_expired: isExpired,
-      date_expiration: expirationDate
+      token: token_key.token,
+      // token_decoded: decodedToken,
+      user_connected: token_key.data,
+      // is_expired: isExpired,
+      // date_expiration: expirationDate
     }
     if (this.token.is_expired) {
       this.on_token_expire()
@@ -277,8 +280,8 @@ export class ApiService {
   };
 
 
-  can(action: string): boolean {
-    let id_privilege = (await this.get_token_profil())?.id_privilege ||0
+  can(action: string) {
+    let id_privilege = this.token?.user_connected?.id_privilege || 0
     if (this.les_droits[action] && this.les_droits[action].indexOf(id_privilege) != -1) {
       return true
     } else {
@@ -301,11 +304,11 @@ export class ApiService {
     },];
 
 
-  async custom_menu() {
+custom_menu() {
     // console.log("agent", this.token.token_decoded.taf_data)
-    let id_privilege = (await this.get_token_profil())?.id_privilege
+    let id_privilege = this.token.user_connected?.id_privilege
     // let id_privilege = 1;
-    console.warn('id_privi',id_privilege)
+    console.warn('id_privi', id_privilege)
     this.menu = this.full_menu.map((one: any) => {
       let res = Object.assign({}, one)
       res.items = one.items.filter((one_item: any) => {
