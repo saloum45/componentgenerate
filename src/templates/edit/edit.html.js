@@ -71,7 +71,7 @@ function get_html_content(table) {
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_${table.table} ||
-      loading_get_details_edit_${table.table}_form" (click)="form_edit_${table.table}.ngSubmit.emit()">
+      loading_get_details_edit_${table.table}_form ||reactiveForm_edit_${table.table}.pristine" (click)="form_edit_${table.table}.ngSubmit.emit()">
           {{ loading_edit_${table.table} ? "En cours ..." : "Valider" }}
       </button>
       <button type="button" class="btn btn-outline-danger" (click)="activeModal.close()">Fermer</button>
