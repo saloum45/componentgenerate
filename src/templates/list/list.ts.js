@@ -21,7 +21,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
   })
   export class ${componentName_class}Component {
     loading_get_${table.table} = false
-    les_${table.table}s: any[] = []
+    ${table.table}: any[] = []
     selected_${table.table}: any = undefined
     ${table.table}_to_edit: any = undefined
     loading_delete_${table.table} = false
@@ -35,7 +35,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
       this.loading_get_${table.table} = true;
       this.api.taf_get("${table.table}", (reponse: any) => {
         if (reponse.status) {
-          this.les_${table.table}s = reponse.data
+          this.${table.table} = reponse.data
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
         } else {
           console.log("L\'opération sur la table ${table.table} a échoué. Réponse= ", reponse);
