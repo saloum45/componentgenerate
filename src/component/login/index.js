@@ -108,11 +108,12 @@ export class ${componentName_class}Component {
 `;
 }
 function get_html_content(table) {
-    let all_colonne = table.description.map((une_colonne) => {
-        return `<!-- ${une_colonne} field avec un control de validite -->
-    <div class="form-group col-sm-6">
-      <label >${une_colonne}</label>
-      <input class="form-control" type="text"  formControlName="${une_colonne}"  placeholder="${une_colonne}"  [ngClass]="{ 'is-invalid': submitted && f.${une_colonne}.errors }"/>
+  let all_colonne = table.description.map((une_colonne) => {
+    return `<!-- ${une_colonne} field avec un control de validite -->
+    <div class="form-group mb-3">
+      <label>${une_colonne}</label>
+      <input class="form-control" type="text" formControlName="${une_colonne}" placeholder="${une_colonne}" 
+        [ngClass]="{ 'is-invalid': submitted && f.${une_colonne}.errors }" />
       @if (submitted && f.${une_colonne}.errors) {
         <div class="invalid-feedback">
           @if (f.${une_colonne}.errors.required) {
@@ -120,22 +121,35 @@ function get_html_content(table) {
           }
         </div>
       }
-    </div>  `;
-    })
-        .join("\n");
-    return `<div class="d-flex align-items-center vh-100">
-  <div class="container">
-    <form  [formGroup]="reactiveForm_login_${table.table} " (ngSubmit)="onSubmit_login_${table.table} ()" #form_login_${table.table} ="ngForm" class="row">
-      ${all_colonne}
-    </form>
-    <!-- vous pouvez valider votre formulaire n\'importe ou -->
+    </div>`;
+  }).join("\n");
 
-    <div class="text-center m-2">
-        <button type="button" class="btn btn-primary m-2" [disabled]="loading_login_${table.table} "
-            (click)="form_login_${table.table} .ngSubmit.emit()">{{loading_login_${table.table} ?"En cours ...":"Valider"}}</button>
-        <button class="btn btn-secondary m-2" type="reset" (click)="onReset_login_${table.table} ()">Vider</button>
+  return `<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100 shadow-sm rounded overflow-hidden border border-2" style="max-width: 900px; background-color: white;">
+
+    <!-- Image illustrative -->
+    <div class="col-md-6 d-none d-md-block p-0">
+      <img src="logo.png" alt="${table.table}" class="img-fluid h-100 w-100 p-2" style="object-fit: cover;">
+    </div>
+
+    <!-- Formulaire -->
+    <div class="col-md-6 p-4 d-flex justify-content-center align-items-center">
+      <div class="w-100">
+        <h3 class="mb-4 text-center titre-login">Formulaire ${table.table}</h3>
+
+        <form [formGroup]="reactiveForm_login_${table.table}" (ngSubmit)="onSubmit_login_${table.table}()" #form_login_${table.table}="ngForm">
+          ${all_colonne}
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="loading_login_${table.table}">
+              {{ loading_login_${table.table} ? 'En cours ...' : 'Connexion' }}
+            </button>
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
 </div>`;
 }
+
 //# sourceMappingURL=index.js.map
