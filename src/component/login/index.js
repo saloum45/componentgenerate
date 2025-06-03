@@ -102,7 +102,7 @@ export class ${componentName_class}Component {
       this.loading_login_${table.table} = false;
   }, (error: any) => {
       this.loading_login_${table.table} = false;
-  })e
+  });
 }
 }
 `;
