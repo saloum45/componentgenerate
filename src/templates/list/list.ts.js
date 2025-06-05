@@ -12,10 +12,11 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
   import { ${componentName_class_add}Component } from '../${componentName_add}/${componentName_add}.component';
   import { ${componentName_class_edit}Component } from '../${componentName_edit}/${componentName_edit}.component';
   import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+  import { NgIf } from '@angular/common';
   @Component({
     selector: 'app-${componentName}',
     standalone: true, // Composant autonome
-    imports: [${componentName_class_add}Component,${componentName_class_edit}Component], // Dépendances importées
+    imports: [NgIf], // Dépendances importées
     templateUrl: './${componentName}.component.html',
     styleUrls: ['./${componentName}.component.${tafConfig.style}']
   })
