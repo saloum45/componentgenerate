@@ -55,7 +55,7 @@ import moment from 'moment';
 export class ApiService {
   local_storage_prefixe = "${projectName}";
   taf_base_url = "${taf_base_url}";
-
+  menu: any = [];
   network: any = {
     token: undefined,
     status: true,
