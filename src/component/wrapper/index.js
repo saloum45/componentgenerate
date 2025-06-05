@@ -37,26 +37,33 @@ function wrapper(options) {
 }
 exports.wrapper = wrapper;
 function get_html_content(module) {
-    return `<div class="d-flex align-items-center justify-content-between">
-  <div class="fs-1">
-        Module ${module}
-  </div>
-  <div class="d-flex">
-       <div ngbDropdown class="d-inline-block">
-            <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-                  Menu
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  @for (one_menu of menu.items; track $index) {
-                  <button ngbDropdownItem [routerLink]="[one_menu.path]"> {{one_menu.libelle}}</button>
-                  }
-            </div>
+  if (module==="home") {
+        return `<div class="d-flex align-items-center justify-content-between">
+      <div class="fs-1">
+            Module ${module}
       </div>
-  </div>
-</div>
-<div class="container">
-      <router-outlet></router-outlet>
-</div>`;
+      <div class="d-flex">
+          <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                      Menu
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      @for (one_menu of menu.items; track $index) {
+                      <button ngbDropdownItem [routerLink]="[one_menu.path]"> {{one_menu.libelle}}</button>
+                      }
+                </div>
+          </div>
+      </div>
+    </div>
+    <div class="container">
+          <router-outlet></router-outlet>
+    </div>`;
+  }else{
+        return `
+    <div class="container">
+          <router-outlet></router-outlet>
+    </div>`;
+  }
 }
 function get_ts_content(tafConfig, module) {
     let les_tables = tafConfig.les_modules.find((un_module) => un_module.module == module).les_tables;
