@@ -66,7 +66,7 @@ export class ${componentName_class}Component {
       this.loading_add_${table.table} = true;
       this.api.taf_post("${table.table}", ${table.table}, (reponse: any) => {
       this.loading_add_${table.table} = false;
-      if (reponse.status) {
+      if (reponse.status_code) {
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
           this.onReset_add_${table.table}()
           this.api.Swal_success("Opération éffectuée avec succés")
@@ -83,7 +83,7 @@ export class ${componentName_class}Component {
   get_details_add_${table.table}_form() {
       this.loading_get_details_add_${table.table}_form = true;
       this.api.taf_get("${table.table}/getformdetails", (reponse: any) => {
-        if (reponse.status) {
+        if (reponse.status_code) {
           this.form_details = reponse.data
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
         } else {
