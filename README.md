@@ -42,6 +42,10 @@ npm install @auth0/angular-jwt
 ```
 npm install sweetalert2
 ```
+- Installer la bibliothèque **Momentjs** pour les notifications
+```
+npm install moment
+```
 - Installer la bibliothèque **ng-bootstrap** (https://ng-bootstrap.github.io)
 ```
 ng add @ng-bootstrap/ng-bootstrap
