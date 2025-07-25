@@ -86,7 +86,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
       const modalRef = this.modalService.open(${componentName_class_add}Component, { ...options, backdrop: 'static' })
       modalRef.result.then((result: any) => {
         console.log('Modal closed with:', result);
-        if (result?.status) {
+        if (result?.status_code) {
           this.get_${table.table}()
         } else {
 
@@ -103,7 +103,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
       modalRef.componentInstance.${table.table}_to_edit = one_${table.table};
       modalRef.result.then((result: any) => {
         console.log('Modal closed with:', result);
-        if (result?.status) {
+        if (result?.status_code) {
           this.get_${table.table}()
         } else {
 
