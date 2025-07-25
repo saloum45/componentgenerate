@@ -87,8 +87,8 @@ export class ${componentName_class}Component {
   }
   login_${table.table}(${table.table}: any) {
       this.loading_login_${table.table} = true;
-      this.api.taf_post_login("taf_auth/auth", ${table.table}, async (reponse: any) => {
-      if (reponse.status) {
+      this.api.taf_post_login("login", ${table.table}, async (reponse: any) => {
+      if (reponse.status_code) {
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
           this.onReset_login_${table.table}()
           await this.api.save_on_local_storage("token", reponse)
