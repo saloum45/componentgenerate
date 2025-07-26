@@ -59,7 +59,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     delete_${table.table} (${table.table} : any){
       this.loading_delete_${table.table} = true;
-      this.api.taf_delete("${table.table}/"+${table.table}.id_${table.table},(reponse: any)=>{
+      this.api.taf_delete("${table.table}/"+${table.table}.id,(reponse: any)=>{
         //when success
         if(reponse.status_code){
           console.log("Opération effectuée avec succés sur la table ${table.table} . Réponse = ",reponse)

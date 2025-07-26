@@ -71,7 +71,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
     }
     edit_${table.table}(${table.table}: any) {
         this.loading_edit_${table.table} = true;
-        this.api.taf_put("${table.table}/"+${table.table}.id_${table.table}, ${table.table}, (reponse: any) => {
+        this.api.taf_put("${table.table}/"+${table.table}.id, ${table.table}, (reponse: any) => {
             if (reponse.status_code) {
                 this.activeModal.close(reponse)
                 console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
