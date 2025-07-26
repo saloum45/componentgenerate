@@ -5,7 +5,9 @@ const strings_1 = require("@angular-devkit/core/src/utils/strings");
 function get_html_content(table) {
   
   // Ne garder que 'nom' et 'libelle' dans la carte
-  let colonnes_carte = table.description.filter(col => ['nom', 'libelle'].includes(col.toLowerCase()));
+  // let colonnes_carte = table.description.filter(col => ['nom', 'libelle'].includes(col.toLowerCase()));
+  let colonnes_carte = table.description.find(col => col.toLowerCase() !== 'id');
+
 
   return `
 <div
