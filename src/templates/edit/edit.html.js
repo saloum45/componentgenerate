@@ -3,20 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_html_content = void 0;
 // 🔹 Fonction utilitaire pour formater les noms des champs
 function formatFieldName(field) {
-    return field
-        .split("_") // Séparer par "_"
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Mettre la première lettre en majuscule
-        .join(" "); // Réassembler avec un espace
+  return field
+    .split("_") // Séparer par "_"
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Mettre la première lettre en majuscule
+    .join(" "); // Réassembler avec un espace
 }
 function get_html_content(table) {
-    let all_colonne = table.table_descriptions.les_colonnes
-        .map((une_colonne) => {
-        switch (une_colonne.Key) {
-            case "PRI":
-                return ""; // Ignorer la clé primaire
-            case "MUL":
-                if (une_colonne.referenced_table) {
-                    return `<!-- Champs ${formatFieldName(une_colonne.Field)} avec un contrôle de validité : clé étrangère liée à la colonne ${une_colonne.Field} de la table ${une_colonne.referenced_table.table_name} -->
+  let all_colonne = table.table_descriptions.les_colonnes
+    .map((une_colonne) => {
+      switch (une_colonne.Key) {
+        case "PRI":
+          return ""; // Ignorer la clé primaire
+        case "MUL":
+          if (une_colonne.referenced_table) {
+            return `<!-- Champs ${formatFieldName(une_colonne.Field)} avec un contrôle de validité : clé étrangère liée à la colonne ${une_colonne.Field} de la table ${une_colonne.referenced_table.table_name} -->
             <div class="form-group col-sm-6">
               <label>${formatFieldName(une_colonne.referenced_table.table_name)}</label>
               <select [ngClass]="{ 'is-invalid': submitted && f.${une_colonne.Field}.errors }" class="form-select" formControlName="${une_colonne.Field}">
@@ -35,16 +35,16 @@ function get_html_content(table) {
                 </div>
               }
             </div>`;
-                }
-                else {
-                    return `<!-- Erreur ${table.table}! Cette clé étrangère ${une_colonne.Field} n'est pas référencée à une table -->`;
-                }
-            default:
-                if (une_colonne["Field"] === "created_at" && une_colonne["Default"] === "CURRENT_TIMESTAMP") {
-                    return ""; // Ignorer les champs timestamp auto-générés
-                }
-                else {
-                    return `<!-- ${formatFieldName(une_colonne.Field)} field avec un contrôle de validité -->
+          }
+          else {
+            return `<!-- Erreur ${table.table}! Cette clé étrangère ${une_colonne.Field} n'est pas référencée à une table -->`;
+          }
+        default:
+          if (une_colonne["Field"] === "created_at" && une_colonne["Default"] === "CURRENT_TIMESTAMP") {
+            return ""; // Ignorer les champs timestamp auto-générés
+          }
+          else {
+            return `<!-- ${formatFieldName(une_colonne.Field)} field avec un contrôle de validité -->
             <div class="form-group col-sm-6">
               <label>${formatFieldName(une_colonne.Field)}</label>
               <input class="form-control" type="text" formControlName="${une_colonne.Field}" placeholder="${formatFieldName(une_colonne.Field)}" [ngClass]="{ 'is-invalid': submitted && f.${une_colonne.Field}.errors }"/>
@@ -56,11 +56,11 @@ function get_html_content(table) {
                 </div>
               }
             </div>`;
-                }
-        }
+          }
+      }
     })
-        .join("\n");
-    return `<div class="modal-header" data-bs-theme="ligth">
+    .join("\n");
+  return `<div class="modal-header" data-bs-theme="ligth">
         <h1 class="modal-title fs-5">Modifier ${table.table}</h1>
         <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
     </div>
@@ -69,13 +69,24 @@ function get_html_content(table) {
         ${all_colonne}
       </form>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_${table.table} ||
-      loading_get_details_edit_${table.table}_form ||reactiveForm_edit_${table.table}.pristine" (click)="form_edit_${table.table}.ngSubmit.emit()">
-          {{ loading_edit_${table.table} ? "En cours ..." : "Valider" }}
-      </button>
-      <button type="button" class="btn btn-outline-danger" (click)="activeModal.close()">Fermer</button>
-    </div>`;
+
+    <!-- Footer -->
+<div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_edit_${table.table} ||
+      loading_get_details_edit_${table.table}_form ||reactiveForm_edit_${table.table}.pristine
+    " (click)="form_edit_${table.table}.ngSubmit.emit()">
+    <span *ngIf="loading_edit_${table.table}">
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+    </span>
+    <span *ngIf="!loading_edit_${table.table}">
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  </button>
+</div>`;
 }
 exports.get_html_content = get_html_content;
 //# sourceMappingURL=edit.html.js.map

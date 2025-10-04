@@ -48,7 +48,7 @@ function get_html_content(table) {
           if (une_colonne.Field === "created_at" && une_colonne.Default === "CURRENT_TIMESTAMP") {
             return "";
           }
-          if (une_colonne.Type === "timestamp" ||une_colonne.Type === "date") {
+          if (une_colonne.Type === "timestamp" || une_colonne.Type === "date") {
             return `
             <!-- Champ ${formattedField} -->
             <div class="form-group col-sm-6">
@@ -101,13 +101,24 @@ function get_html_content(table) {
         ${all_colonne}
       </form>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary m-2" [disabled]="loading_add_${table.table} || loading_get_details_add_${table.table}_form"
-      (click)="form_add_${table.table}.ngSubmit.emit()">
-      {{ loading_add_${table.table} ? "En cours ..." : "Valider" }}
-      </button>
-      <button type="button" class="btn btn-outline-danger" (click)="activeModal.close()">Fermer</button>
-    </div>`;
+
+
+    <div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_add_${table.table} ||
+      loading_get_details_add_${table.table}_form
+    " (click)="form_add_${table.table}.ngSubmit.emit()">
+    <span *ngIf="loading_add_${table.table}">
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+    </span>
+    <span *ngIf="!loading_add_${table.table}">
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  </button>
+</div>`;
 }
 exports.get_html_content = get_html_content;
 //# sourceMappingURL=add.html.js.map

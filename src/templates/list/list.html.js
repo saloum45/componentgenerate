@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_html_content = void 0;
 const strings_1 = require("@angular-devkit/core/src/utils/strings");
 function get_html_content(table) {
-  
+
   // Ne garder que 'nom' et 'libelle' dans la carte
   // let colonnes_carte = table.description.filter(col => ['nom', 'libelle'].includes(col.toLowerCase()));
   let colonnes_carte = table.description.find(col => col.toLowerCase() !== 'id');
@@ -23,17 +23,20 @@ function get_html_content(table) {
 </div>
 <!-- Liste des éléments -->
 <!-- Loading state -->
-<ng-container *ngIf="loading_get_${table.table}">
+@if (loading_get_${table.table}) {
+  <ng-container >
   <div class="text-center py-5">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Chargement en cours...</span>
-    </div>
-    <p class="mt-2 text-muted fs-5">Chargement en cours...</p>
+  <div class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Chargement en cours...</span>
   </div>
-</ng-container>
-
+  <p class="mt-2 text-muted fs-5">Chargement en cours...</p>
+  </div>
+  </ng-container>
+}
+  
 <!-- contenu sous format carte -->
-<div class="row g-4" *ngIf="!loading_get_${table.table} && ${table.table}.length > 0">
+@if (!loading_get_${table.table} && ${table.table}.length > 0) {  
+<div class="row g-4" >
   @for (one_${table.table} of ${table.table}; track one_${table.table}) {
   <ng-container>
     <div class="col-sm-6 col-md-4 col-lg-4">
@@ -78,9 +81,10 @@ function get_html_content(table) {
   </ng-container>
   }
 </div>
-
+}
 <!-- Empty state -->
-<div *ngIf="!loading_get_${table.table} && ${table.table}.length === 0" class="text-center py-5">
+@if (!loading_get_${table.table} && ${table.table}.length === 0) {
+<div class="text-center py-5">
   <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#6c757d" class="bi bi-info-circle mb-3"
     viewBox="0 0 16 16">
     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -89,6 +93,7 @@ function get_html_content(table) {
   </svg>
   <p class="fs-5 text-muted">Pas de données</p>
 </div>
+}
 `;
 }
 exports.get_html_content = get_html_content;
