@@ -37,7 +37,7 @@ function get_html_content(table) {
 <!-- contenu sous format carte -->
 @if (!loading_get_${table.table} && ${table.table}.length > 0) {  
 <div class="row g-4" >
-  @for (one_${table.table} of ${table.table}; track one_${table.table}) {
+  @for (one_${table.table} of list; track one_${table.table}) {
   <ng-container>
     <div class="col-sm-6 col-md-4 col-lg-4">
       <div class="card shadow-sm h-100 border-0 rounded-3 transition-hover position-relative">

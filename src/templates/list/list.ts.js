@@ -37,6 +37,7 @@ function get_ts_content(table, componentName_class, componentName, tafConfig) {
       this.api.taf_get("${table.table}", (reponse: any) => {
         if (reponse.status_code) {
           this.${table.table} = reponse.data
+          this.list = reponse.data
           console.log("Opération effectuée avec succés sur la table ${table.table}. Réponse= ", reponse);
         } else {
           console.log("L\'opération sur la table ${table.table} a échoué. Réponse= ", reponse);
